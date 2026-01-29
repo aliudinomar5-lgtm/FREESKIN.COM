@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Legends Free Skin</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #0b102f, #151b4a);
+  color: #fff;
+  text-align: center;
+}
+
+/* MAIN CARD */
+.card {
+  margin: 70px auto;
+  max-width: 340px;
+  background: #1b2160;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(0,0,0,.4);
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #ffd200;
+  color: #000;
+  cursor: pointer;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #202777;
+  width: 90%;
+  max-width: 320px;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 8px;
+  display: none;
+}
+
+/* LOADING */
+.loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #0b102f;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #333;
+  border-top: 5px solid #ffd200;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* SUCCESS POPUP */
+.success {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.success-box {
+  background: #1b2160;
+  padding: 30px;
+  border-radius: 16px;
+  animation: pop .4s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.small {
+  font-size: 12px;
+  opacity: .7;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MAIN -->
+<div class="card">
+  <h2>🎁 Mobile Legends Free Skin</h2>
+  <p>Event Reward</p>
+  <button class="btn" onclick="openOverlay()">GET FREE SKIN</button>
+  <p class="small">Enter ML ID• No password</p>
+</div>
+
+<!-- ID OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>Enter Your ML ID</h3>
+    <input id="mlid" placeholder="Enter ML ID"
+           inputmode="numeric" oninput="validateInput()">
+    <div class="error" id="error">❌ Numbers only allowed</div>
+    <button class="btn" onclick="startProcess()">CONFIRM</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="loader"></div>
+  <h2 style="margin-top:20px;">Getting Skin...</h2>
+  <p class="small">Please wait</p>
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="success">
+  <div class="success-box">
+    <h2>🎉 CONGRATULATIONS!</h2>
+    <p>Your skin has been sent successfully.</p>
+    <p class="small">Check your in-game mail</p>
+  </div>
+</div>
+
+<script>
+function openOverlay() {
+  document.getElementById("overlay").style.display = "flex";
+}
+
+function validateInput() {
+  const input = document.getElementById("mlid");
+  const error = document.getElementById("error");
+
+  if (/[^0-9]/.test(input.value)) {
+    input.value = input.value.replace(/[^0-9]/g, "");
+    error.style.display = "block";
+  } else {
+    error.style.display = "none";
+  }
+}
+
+function startProcess() {
+  const id = document.getElementById("mlid").value;
+
+  if (id.length < 6) {
+    document.getElementById("error").innerText = "❌ Invalid ML ID";
+    document.getElementById("error").style.display = "block";
+    return;
+  }
+
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("loading").style.display = "flex";
+
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("success").style.display = "flex";
+  }, 4000);
+}
+</script>
+
+</body>
+</html>
